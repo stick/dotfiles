@@ -54,12 +54,10 @@ object() {
   local dst="${HOME}/.${src}"
 
   special=$( echo $src | grep ^% )
-  set -x
   if [ -n "$special" ]; then
     src=${src#%}
     dst="${HOME}/${src}"
   fi
-  set +x
 
   case $mode in
     link)
@@ -93,9 +91,7 @@ object() {
       return
     elif [ -d "${dst}" ]; then
       # is a directory
-        for o in $src/*; do
-          object $o $mode
-        done
+      return
     elif [ -f "${dst}" ]; then
       # is a file
       backup $dst
