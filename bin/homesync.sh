@@ -53,8 +53,8 @@ object() {
   local mode=$2
   local dst="${HOME}/.${src}"
 
-  if ( ! echo $src | grep -s nohide >/dev/null ); then
-    special="nohide.${src}"
+  if ( ! echo $src | grep -s nodot >/dev/null ); then
+    special="${src}.nodot"
     if [ -e "$special" ]; then
       dst="${HOME}/${src}"
     fi
