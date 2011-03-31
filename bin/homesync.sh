@@ -29,6 +29,19 @@ usage() {
     exit $1
 }
 
+repo_loc() {
+  local repo=$1
+  if [ -L ~/.homesyncrc ]; then
+    command file -bh ~/.homesyncrc | awk '{ print $NF }'
+  else
+    # this is kinda a never catch -- the only time I *should* call this function without an arg I don't need it anyway
+    # but it's a weird corner case and you never know
+    [ -z "$repo" ] && echo "~/.homesyncrc is missing (or not a link to the repo), but I don't have a repo to set... bailing." && exit 2
+    ln -s $repo ~/.homesyncrc
+    echo $repo
+  fi
+}
+
 backup() {
   local dst=$1
   echo "${dst} exists... copying to ${dst}.orig"
@@ -40,6 +53,14 @@ object() {
   local mode=$2
   local dst="${HOME}/.${src}"
 
+  special=$( echo $src | grep ^% )
+  set -x
+  if [ -n "$special" ]; then
+    src=${src#%}
+    dst="${HOME}/${src}"
+  fi
+  set +x
+
   case $mode in
     link)
       cmd="ln -sf"
@@ -50,6 +71,11 @@ object() {
     sync)
       cmd=""
       ;;
+    restore)
+      cmd="cp -vf"
+      src="${HOME}/.${src}.orig"
+      dst="${HOME}/.${src}"
+      ;;
     *)
       echo "Unknown mode: $mode"
       exit 1
@@ -59,17 +85,20 @@ object() {
 
   if [ -e "${dst}" ]; then
     # exists
-    if [ -f "${dst}" ]; then
-      # is a file
-      backup $dst
+    if [ -L "${dst}" ]; then
+      # is a link
+      if [ -n "$debug" ]; then
+        command file -h $dst
+      fi
+      return
     elif [ -d "${dst}" ]; then
       # is a directory
         for o in $src/*; do
           object $o $mode
         done
-    elif [ -L "${dst}" ]; then
-      # is a link
-      return
+    elif [ -f "${dst}" ]; then
+      # is a file
+      backup $dst
     else
       echo "$dst is something I don't recognize (file, link, directory)"
       exit 1
@@ -96,7 +125,7 @@ case $1 in
     if [ -z "$2" ]; then
       usage
     else
-      REPO_LOC=$2
+      REPO_LOC=$(repo_loc $2)
       if [ -d "$REPO_LOC" ]; then
         echo "Setting up initial homedir links to $REPO_LOC"
         if [ -z "$3" ]; then
@@ -109,6 +138,11 @@ case $1 in
         exit 1
       fi
     fi
+    ;;
+  restore)
+    repo_loc
+    echo "Restoring originals (if present)"
+    mode="restore"
     ;;
   *)
     usage
