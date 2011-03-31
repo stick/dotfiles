@@ -53,10 +53,11 @@ object() {
   local mode=$2
   local dst="${HOME}/.${src}"
 
-  special=$( echo $src | grep ^nohide- )
-  if [ -n "$special" ]; then
-    src=${src#nohide-}
-    dst="${HOME}/${src}"
+  if ( ! echo $src | grep -s nohide >/dev/null ); then
+    special="nohide.${src}"
+    if [ -e "$special" ]; then
+      dst="${HOME}/${src}"
+    fi
   fi
 
   case $mode in
