@@ -53,9 +53,9 @@ object() {
   local mode=$2
   local dst="${HOME}/.${src}"
 
-  special=$( echo $src | grep ^% )
+  special=$( echo $src | grep ^nohide- )
   if [ -n "$special" ]; then
-    src=${src#%}
+    src=${src#nohide-}
     dst="${HOME}/${src}"
   fi
 
@@ -101,6 +101,7 @@ object() {
     fi
   fi
   # doesn't exist
+  echo "setup ($mode) $dst"
   ${debug} $cmd $REPO_LOC/$src $dst
 }
 
@@ -118,21 +119,17 @@ fi
 
 case $1 in
   setup)
-    if [ -z "$2" ]; then
-      usage
-    else
-      REPO_LOC=$(repo_loc $2)
-      if [ -d "$REPO_LOC" ]; then
-        echo "Setting up initial homedir links to $REPO_LOC"
-        if [ -z "$3" ]; then
-          mode="link"
-        else
-          mode=$3
-        fi
+    REPO_LOC=$(repo_loc $2)
+    if [ -d "$REPO_LOC" ]; then
+      echo "Setting up initial homedir links to $REPO_LOC"
+      if [ -z "$3" ]; then
+        mode="link"
       else
-        echo "$REPO_LOC is not a directory"
-        exit 1
+        mode=$3
       fi
+    else
+      echo "$REPO_LOC is not a directory"
+      exit 1
     fi
     ;;
   restore)

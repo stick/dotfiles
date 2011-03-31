@@ -54,7 +54,7 @@ unset HISTSIZE           # store an unlimited amount of history
 alias ndate="date '+%A, %B %d, %Y'"
 alias gpgview='gpg --decrypt'
 alias gpsort="perl -l -p -i -e '$_ = join(\",\", sort split /,/)'"
-alias ls="ls -G"
+alias ls="ls --color=auto"   # gnu ls only -- this gets overwritten for macosx later (bsd/posix)
 alias ll="ls -l"
 alias l.="ls -la"
 alias rootpath="export PATH=/sbin:/usr/sbin:/usr/local/sbin:$PATH"

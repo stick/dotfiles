@@ -7,11 +7,10 @@ if [ -f /opt/local/etc/bash_completion ]; then
 fi
 
 function find {
-  find=$(which find)
   if [ "$#" -lt 1 ]; then
-    ${find} .
+    command find .
   else
-    ${find} $*
+    command find $*
   fi
 }
 
@@ -20,3 +19,25 @@ function growl {
 }
 
 PS1='\h:\W$(__git_ps1 "(%s)") \u\$ ' # macosx style with git branch
+
+# MacOSX -> based on BSD
+# BSD uses posix coreutils
+# you can install coreutils from ports/fink and have access to them all
+# normal port location /opt/local/libexec/gnubin
+# or g{old command name}
+
+# gnu aliases
+alias ls="gls --color=auto"
+alias dircolors="gdircolors"
+
+# color-ls initialization (taken from /etc/profile.d/colorls.sh on linux)
+
+COLORS=/etc/DIR_COLORS
+[ -e "/etc/DIR_COLORS.$TERM" ] && COLORS="/etc/DIR_COLORS.$TERM"
+[ -e "$HOME/.dircolors" ] && COLORS="$HOME/.dircolors"
+[ -e "$HOME/.dir_colors" ] && COLORS="$HOME/.dir_colors"
+[ -e "$HOME/.dircolors.$TERM" ] && COLORS="$HOME/.dircolors.$TERM"
+[ -e "$HOME/.dir_colors.$TERM" ] && COLORS="$HOME/.dir_colors.$TERM"
+[ -e "$COLORS" ] || return
+
+eval `dircolors --sh "$COLORS" 2>/dev/null`
