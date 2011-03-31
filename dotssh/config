@@ -1,0 +1,30 @@
+Host *.miscellaneous.net
+  User stick
+
+Host tesla.headnode
+  HostName headnode1.tesla.airdat.com
+  User root
+
+Host *.tesla*
+  User root
+
+Host *.mgmt.tesla.airdat.com
+  ProxyCommand ssh tesla.headnode nc -v %h %p
+
+Host c*.tesla.airdat.com # only blades
+  ProxyCommand ssh tesla.headnode nc -vvv %h %p
+
+Host *.local
+  User root
+  ProxyCommand ssh tesla.headnode nc -v %h %p
+
+Host *
+   ForwardAgent                 yes
+   ForwardX11                   no
+   ForwardX11Trusted            no
+   GSSAPIDelegateCredentials    no
+   HashKnownHosts               no
+   #ControlPath                  ~/.ssh/sock/%r@%h:%p
+   #ControlMaster                auto
+
+

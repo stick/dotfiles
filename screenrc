@@ -1,0 +1,32 @@
+vbell off
+startup_message off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[%{G}%H%{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%m/%d %{G}%C%A]'
+##termcapinfo xterm|xterms|xs|rxvt ti@:te@
+termcapinfo xterm-color|xterm*|xterms|xs|rxvt ti@:te@
+escape ^Tt
+sorendition 04 43
+defscrollback 10000
+shelltitle "$ |bash"
+shell -$SHELL
+
+# bind b to send screen buffer to the macosx clipboard
+bind b eval "writebuf" "exec sh -c 'pbcopy < /tmp/screen-exchange'"
+
+# pageup / pagedown -- mousewheel scrolling for screen
+# Scroll up
+bindkey -d "^[[5S" eval copy "stuff 5\025"
+bindkey -m "^[[5S" stuff 5\025
+#
+# # Scroll down
+bindkey -d "^[[5T" eval copy "stuff 5\004"
+bindkey -m "^[[5T" stuff 5\004
+#
+# # Scroll up more
+bindkey -d "^[[25S" eval copy "stuff \025"
+bindkey -m "^[[25S" stuff \025
+#
+# # Scroll down more
+bindkey -d "^[[25T" eval copy "stuff \004"
+bindkey -m "^[[25T" stuff \004
+

@@ -1,0 +1,3 @@
+# vim:ft=sh
+# work specific shell configurations
+CDPATH="$CDPATH:$HOME/repos/puppet/"

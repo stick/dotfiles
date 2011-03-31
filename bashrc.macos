@@ -1,0 +1,22 @@
+# vim:ft=sh
+# MacPorts Installer addition on 2011-01-04_at_17:29:48: adding an appropriate PATH variable for use with MacPorts.
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Finished adapting your PATH environment variable for use with MacPorts.
+if [ -f /opt/local/etc/bash_completion ]; then
+  . /opt/local/etc/bash_completion
+fi
+
+function find {
+  find=$(which find)
+  if [ "$#" -lt 1 ]; then
+    ${find} .
+  else
+    ${find} $*
+  fi
+}
+
+function growl {
+  echo -e $'\e]9;'${1}'\007'
+}
+
+PS1='\h:\W$(__git_ps1 "(%s)") \u\$ ' # macosx style with git branch

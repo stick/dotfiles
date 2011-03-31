@@ -1,0 +1,19 @@
+[user]
+	name = Chris MacLeod
+	email = cmacleod@airdat.com
+[core]
+	editor = vim
+  excludesfile = ~/.gitconfig
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[alias]
+  qc = commit --message \"No Message Logged\" --cleanup=default --all
+  changes = diff --name-status -r
+  diffstat = diff --stat -r
+  allstatus = status --ignore-submodules=none
+[status]
+  submodulesummary = true
+[branch]
+  autosetupmerge = true
