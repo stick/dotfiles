@@ -3,7 +3,8 @@ startup_message off
 hardstatus alwayslastline
 hardstatus string '%{= kG}[%{G}%H%{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%m/%d %{G}%C%A]'
 ##termcapinfo xterm|xterms|xs|rxvt ti@:te@
-termcapinfo xterm-color|xterm*|xterms|xs|rxvt ti@:te@
+termcapinfo xterm-color|xterm-256color|xterm*|xterms|xs|rxvt ti@:te@
+term screen-256color
 escape ^Tt
 sorendition 04 43
 defscrollback 10000

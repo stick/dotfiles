@@ -20,6 +20,11 @@ function growl {
 
 PS1='\h:\W$(__git_ps1 "(%s)") \u\$ ' # macosx style with git branch
 
+# macos aliases
+alias wgrab="curl --remote-name" # make wgrab cause curl to act like wget
+alias gvim="mvim" # mvim is the shell script that ships with MacVim -- gvim is the x11 version
+
+
 # MacOSX -> based on BSD
 # BSD uses posix coreutils
 # you can install coreutils from ports/fink and have access to them all

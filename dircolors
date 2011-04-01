@@ -37,6 +37,7 @@ TERM dtterm
 TERM color_xterm
 TERM ansi
 TERM screen
+TERM screen-256color
 TERM screen.linux
 TERM kon
 TERM kterm

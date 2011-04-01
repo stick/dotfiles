@@ -3,7 +3,7 @@
 	email = cmacleod@airdat.com
 [core]
 	editor = vim
-  excludesfile = ~/.gitconfig
+  excludesfile = ~/.gitignore
 [color]
 	diff = auto
 	status = auto
