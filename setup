@@ -29,6 +29,7 @@ git clone ${repohost}:ssh-config .ssh
 # clone vi configs
 git clone ${repohost}:vimfiles .vim
 ln -s ~/.vim/vimrc ~/.vimrc
+ln -s ~/.vim/gvimrc ~/.gvimrc
 
 # gnupg
 git clone ${repohost}:gnupg-config .gnupg
