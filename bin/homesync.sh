@@ -9,7 +9,7 @@ usage() {
     echo
     echo "  Actions:"
     echo "    setup: sets up link between repository of configs and your homedir"
-    echo "      $0 setup path_to_repo [mode]"
+    echo "      $0 setup [path_to_repo] [mode]"
     echo "       mode: link - create symlinks between repo and configs - the default when unspecified"
     echo "         $0 setup path_to_repo link"
     echo "       mode: copy - copy configs from repo (ie don't use symlinks)"
@@ -51,9 +51,16 @@ backup() {
 object() {
   local src=$1
   local mode=$2
-  local dst="${HOME}/.${src}"
+  if [ -n "$depth" ]; then
+    local dst="${HOME}/${src}"
+  else
+    local dst="${HOME}/.${src}"
+  fi
 
-  if ( ! echo $src | grep -s nodot >/dev/null ); then
+  if ( echo $src | grep -s nodot >/dev/null ); then
+    # this is the nodot file which is a marker and we don't process
+    return
+  else
     special="${src}.nodot"
     if [ -e "$special" ]; then
       dst="${HOME}/${src}"
@@ -69,11 +76,6 @@ object() {
       ;;
     sync)
       cmd=""
-      ;;
-    restore)
-      cmd="cp -vf"
-      src="${HOME}/.${src}.orig"
-      dst="${HOME}/.${src}"
       ;;
     *)
       echo "Unknown mode: $mode"
@@ -92,6 +94,8 @@ object() {
       return
     elif [ -d "${dst}" ]; then
       # is a directory
+      depth="$(( $depth + 1 ))"
+      for no in $src/*; do object $no $mode ; done
       return
     elif [ -f "${dst}" ]; then
       # is a file
@@ -132,11 +136,6 @@ case $1 in
       echo "$REPO_LOC is not a directory"
       exit 1
     fi
-    ;;
-  restore)
-    repo_loc
-    echo "Restoring originals (if present)"
-    mode="restore"
     ;;
   *)
     usage
