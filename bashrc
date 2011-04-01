@@ -61,49 +61,49 @@ alias rootpath="export PATH=/sbin:/usr/sbin:/usr/local/sbin:$PATH"
 
 # work specific rc stuff
 if [ -f ~/.bashrc.work ]; then
-    source ~/.bashrc.work
+  source ~/.bashrc.work
 fi
 
 # I like to have root commands in my path even if I don't have perms to them
 if [ -z "$ROOTPATH_RUN" ]; then
-    if [ x`id -u` == x0 ]; then
-        rootpath
-        export ROOTPATH_RUN="true"
-    fi
+  if [ x`id -u` == x0 ]; then
+    rootpath
+    export ROOTPATH_RUN="true"
+  fi
 fi
 
 # silly mac
 case $MACHTYPE in
-    *-apple-darwin*)
-        if [ -f ~/.bashrc.macos ]; then
-            source ~/.bashrc.macos
-        fi
-        ;;
+  *-apple-darwin*)
+    if [ -f ~/.bashrc.macos ]; then
+      source ~/.bashrc.macos
+    fi
+    ;;
 esac
 
 # allow completion snippets in homedir
 if [ -n "$BASH_COMPLETION" ]; then
-    for completion_snippet in $HOME/.bash_completion.d/*; do
-        if [ -f "$completion_snippet" ] ;then
-            source $completion_snippet
-        fi
-    done
+  for completion_snippet in $HOME/.bash_completion.d/*; do
+    if [ -f "$completion_snippet" ] ;then
+      source $completion_snippet
+    fi
+  done
 fi
 
 # are we an interactive shell?
 if [ "$PS1" ]; then
-    case $TERM in
+  case $TERM in
     xterm*)
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}$(__git_ps1 "(%s)"):${PWD/#$HOME/~}\007"'
-        ;;
+      PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}$(__git_ps1 "(%s)"):${PWD/#$HOME/~}\007"'
+      ;;
     screen)
-        PROMPT_COMMAND='echo -ne "\033k${PWD/#$HOME/~}\033\\"'
-        ;;
-    esac
-    # Turn on checkwinsize
-    shopt -s checkwinsize
-    # set prompt
-    PS1="[\u@\h \W]\\$ "
+      PROMPT_COMMAND='echo -ne "\033k${PWD/#$HOME/~}\033\\"'
+      ;;
+  esac
+  # Turn on checkwinsize
+  shopt -s checkwinsize
+  # set prompt
+  PS1="[\u@\h \W]\\$ "
 fi
 
 
@@ -112,11 +112,11 @@ fi
 # I can never remember the syntax for this, it has the -x to remind and clue me in to what it's doing.
 function cpbytar() {
   if [ $# -lt 2 ]; then
-      echo "cpbytar [source] [dest]"
+    echo "cpbytar [source] [dest]"
   fi
-        set -x
+  set -x
   tar cf - $1 | tar xvf - -C $2
-        set +x
+  set +x
 }
 
 # used for quick finds where I don't want the git objects to show up
@@ -126,21 +126,21 @@ function nfind() {
 
 # thank dog I don't use cvs much anymore, but if you did and made trees you know why this is here
 function cvsdir() {
-    IFS='/'
-    for x in $*; do
-        if [ "$x" ]; then
-            mkdir $x && cvs add $x && cd $x
-        fi
-    done
+  IFS='/'
+  for x in $*; do
+    if [ "$x" ]; then
+      mkdir $x && cvs add $x && cd $x
+    fi
+  done
 }
 
 # useful for running git operations on a tree of repos
 function super-git() {
-    for repo in *; do
-        echo "# $repo"
-        ( cd $repo && git $* )
-        echo "-- -- -- --"
-    done
+  for repo in *; do
+    echo "# $repo"
+    ( cd $repo && git $* )
+    echo "-- -- -- --"
+  done
 }
 
 # this sets the screen window title prior to launching ssh

@@ -1,0 +1,49 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+  echo "$0 [repo host]"
+  exit 1
+else
+  repohost=$1
+fi
+
+# setup homedir
+printf "Home is $HOME... Proceed? "
+read ANS
+
+case $ANS in
+  y|Y|yes|Yes|YEs|YES|yEs|yES|yeS)
+    true
+    ;;
+  *)
+    echo "Quiting."
+    exit 0
+esac
+
+./bin/homesync.sh setup $(pwd)
+ln -sf ~/.bashrc ~/.bash_profile
+
+# clone ssh config repo
+git clone ${repohost}:ssh-config .ssh
+
+# clone vi configs
+git clone ${repohost}:vimfiles .vim
+ln -s ~/.vim/vimrc ~/.vimrc
+
+# gnupg
+git clone ${repohost}:gnupg-config .gnupg
+
+# mac
+case $MACHTYPE in
+  *-apple-darwin*)
+    if [ -e "$HOME/.macports" ]; then
+      echo "looks like no macports, you probably want that for unix utils"
+    else
+      echo "You really probably need to install the following from macports to avoid odd behavior"
+      echo "    bash-completion"
+      echo "    coreutils (color ls mainly)"
+      echo "    ctags"
+      echo "    vim (macos version lags behind)"
+    fi
+    ;;
+esac
