@@ -96,7 +96,7 @@ if [ "$PS1" ]; then
     xterm*)
       PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}$(__git_ps1 "(%s)"):${PWD/#$HOME/~}\007"'
       ;;
-    screen)
+    screen*)
       PROMPT_COMMAND='echo -ne "\033k${PWD/#$HOME/~}\033\\"'
       ;;
   esac

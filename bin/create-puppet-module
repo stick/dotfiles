@@ -1,0 +1,18 @@
+#!/bin/sh
+
+module=$1
+[ -z "$module" ] && echo "Missing module name" && exit 1
+
+set -x
+mkdir ${module}
+mkdir ${module}/files/
+mkdir ${module}/manifests/
+mkdir ${module}/lib/
+mkdir ${module}/lib/puppet/
+mkdir ${module}/lib/puppet/parser/
+mkdir ${module}/lib/puppet/functions
+mkdir ${module}/lib/puppet/provider/
+mkdir ${module}/lib/puppet/provider/type/
+mkdir ${module}/lib/facter/
+mkdir ${module}/templates/
+set +x
