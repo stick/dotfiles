@@ -1,0 +1,5 @@
+#!/bin/sh
+
+GEM_PATH=$( gem environment gempath |sed -e "s#:#/bin:#g" -e 's#$#/bin#' )
+PATH=$PATH:$GEM_PATH
+export PATH
