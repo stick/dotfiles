@@ -103,7 +103,12 @@ if [ "$PS1" ]; then
   # Turn on checkwinsize
   shopt -s checkwinsize
   # set prompt
-  PS1="[\u@\h \W]\\$ "
+  GIT_VERSION=$(git --version 2>&1)
+  if [ -n "$GIT_VERSION" ]; then
+    PS1='[\u@\h $(__git_ps1 "(%s)")\W]\\$ '
+  else
+    PS1='[\u@\h \W]\\$ '
+  fi
 fi
 
 
