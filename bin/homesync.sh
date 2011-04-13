@@ -83,6 +83,10 @@ object() {
       ;;
   esac
 
+  if ( echo $src | grep -s README >/dev/null ); then
+    # don't link in readme's
+    return
+  fi
 
   if [ -e "${dst}" ]; then
     # exists
