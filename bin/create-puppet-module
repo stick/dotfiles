@@ -5,10 +5,11 @@ module=$1
 
 set -x
 mkdir -p ${module}
-mkdir -p ${module}/files/
-mkdir -p ${module}/manifests/
+mkdir -p ${module}/files
+mkdir -p ${module}/manifests
 mkdir -p ${module}/lib/puppet/parser/functions
-mkdir -p ${module}/lib/puppet/provider/type/
-mkdir -p ${module}/lib/facter/
-mkdir -p ${module}/templates/
+mkdir -p ${module}/lib/puppet/provider
+mkdir -p ${module}/lib/puppet/type
+mkdir -p ${module}/lib/facter
+mkdir -p ${module}/templates
 set +x

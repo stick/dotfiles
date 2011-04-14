@@ -153,7 +153,10 @@ function super-git() {
 function ssh() {
   args=$@
   echo -ne "\033k${args##* }\033\\";
+  OLDTERM=$TERM
+  export TERM=xterm-256color
   command ssh "$@";
+  export TERM=$OLDTERM
   # Set window title back here!
 }
 
