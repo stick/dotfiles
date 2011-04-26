@@ -1,15 +1,50 @@
-#!/bin/sh
+#!/bin/bash
+
+while getopts "g" opt; do
+  case $opt in
+    g)
+      ENABLE_GIT=1
+      shift
+      echo "module $1 will be initialized as a git module"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
 
 module=$1
 [ -z "$module" ] && echo "Missing module name" && exit 1
 
-set -x
-mkdir -p ${module}
-mkdir -p ${module}/files
-mkdir -p ${module}/manifests
-mkdir -p ${module}/lib/puppet/parser/functions
-mkdir -p ${module}/lib/puppet/provider
-mkdir -p ${module}/lib/puppet/type
-mkdir -p ${module}/lib/facter
-mkdir -p ${module}/templates
-set +x
+if [ -e ~/.puppet_module_skeleton ]; then
+  type=$(file -b ~/.puppet_module_skeleton)
+  case $type in
+    directory*|symbolic\ link*)
+      SKEL_EXISTS=1
+      ;;
+    *)
+      unset SKEL_EXISTS
+      ;;
+  esac
+fi
+
+if [ -n "$SKEL_EXISTS" ]; then
+  mkdir -p ${module}
+  rsync -qa ~/.puppet_module_skeleton/ $module 
+  find $module -name .git -prune -o -print
+else
+  mkdir -vp ${module}/files
+  mkdir -vp ${module}/manifests
+  mkdir -vp ${module}/lib/puppet/parser/functions
+  mkdir -vp ${module}/lib/puppet/provider
+  mkdir -vp ${module}/lib/puppet/type
+  mkdir -vp ${module}/lib/facter
+  mkdir -vp ${module}/templates
+fi
+
+if [ -n "$ENABLE_GIT" ]; then
+  git init ${module}
+  cd $module && git add --all
+fi
+

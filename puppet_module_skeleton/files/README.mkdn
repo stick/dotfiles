@@ -1,0 +1,25 @@
+
+Files
+=====
+
+Define static files in this directory.
+
+The puppet master service includes a file server for transferring static files.
+If a file resource declaration contains a puppet: URI in its source attribute,
+nodes will retrieve that file from the master’s file server:
+
+    file { "/etc/sudoers":
+        mode => 440,
+        owner => root,
+        group => root,
+        source => "puppet:///modules/module_name/sudoers"
+    }
+
+If a server hostname is omitted (i.e. puppet:///{mount point}/{path}; note the
+triple-slash), the URI will resolve to whichever server the evaluating node
+considers to be its master. As this makes manifest code more portable and
+reusable, hostnames should be omitted whenever possible
+
+See http://docs.puppetlabs.com/guides/file_serving.html for more details.
+
+

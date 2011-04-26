@@ -13,6 +13,7 @@
   changes = diff --name-status -r
   diffstat = diff --stat -r
   allstatus = status --ignore-submodules=none
+  find = ls-tree -r --full-name --name-status HEAD
 [status]
   submodulesummary = true
 [branch]

@@ -1,0 +1,18 @@
+
+Templates
+=========
+
+Define templates in this directory.
+
+Puppet supports templates and templating via ERB, which is part of the Ruby
+standard library and is used for many other projects including Ruby on Rails.
+While it is a Ruby templating system, you do not need to understand much Ruby to
+use ERB. See http://docs.puppetlabs.com/guides/templating.html for more details.
+
+/etc/named.conf would be templated using the following example:
+
+    file { "/etc/named.conf":
+      path => "/etc/named.conf",
+      content => template("${module_name}/named.conf.erb"),
+    }
+
