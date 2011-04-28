@@ -154,8 +154,15 @@ function super-git() {
 # would be nice to autodetect here but not sure if there's a way
 function ssh() {
   args=$@
-  echo -ne "\033k${args##* }\033\\";
-  TERM=screen command ssh "$@";
+  case $TERM in
+    screen*)
+      echo -ne "\033k${args##* }\033\\";
+      TERM=screen command ssh "$@";
+      ;;
+    *)
+      command ssh "$@";
+      ;;
+  esac
 }
 
 # page the pi (puppet info) command
