@@ -150,14 +150,12 @@ function super-git() {
 
 # this sets the screen window title prior to launching ssh
 # if your remote terminal doesn't have prompt_command setup correctly for screen
+# set term to screen since most remote systems don't support a 256 color screen termcap
+# would be nice to autodetect here but not sure if there's a way
 function ssh() {
   args=$@
   echo -ne "\033k${args##* }\033\\";
-  OLDTERM=$TERM
-  export TERM=xterm-256color
-  command ssh "$@";
-  export TERM=$OLDTERM
-  # Set window title back here!
+  TERM=screen command ssh "$@";
 }
 
 # page the pi (puppet info) command

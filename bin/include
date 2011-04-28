@@ -5,9 +5,15 @@ for ob in $*; do
   case "$ob" in
     --force)  noop="" ;;
     --*) options="${options} ${ob}" ;;
+    *=*) parameters="${parameters} ${ob}" ;;
     *) classes="${classes} ${ob}" ;;
   esac
 done
+( for parameter in $parameters; do
+  lhs=$(echo $parameter | awk -F= '{ print $1 }')
+  rhs=$(echo $parameter | awk -F= '{ print $2 }')
+  echo \$${lhs}=\"${rhs}\"
+done
 for class in $classes; do
   echo "include $class"
-done | puppet apply $noop --verbose $options
+done ) | puppet apply $noop --verbose $options
