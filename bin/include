@@ -9,11 +9,29 @@ for ob in $*; do
     *) classes="${classes} ${ob}" ;;
   esac
 done
-( for parameter in $parameters; do
+
+# puppet apply doesn't read/import site.pp
+site_manifest=$(puppet --configprint manifest)
+# create symlink for current domain to another domain
+extdata_dir="$(puppet --configprint confdir)/manifests/extdata"
+link="${extdata_dir}/domain_$(facter domain).csv"
+target=${PUPPET_TARGET_DOMAIN:-${extdata_dir}/domain_local.csv}
+puppet resource file $link ensure=link target=$target > /dev/null
+
+
+# invoke a subshell to pass everything to puppet apply
+# we could write a tmp file but that's no fun
+# cause then we have to clean it up
+(
+for parameter in $parameters; do
   lhs=$(echo $parameter | awk -F= '{ print $1 }')
   rhs=$(echo $parameter | awk -F= '{ print $2 }')
   echo \$${lhs}=\"${rhs}\"
 done
+echo import \"${site_manifest}\"
 for class in $classes; do
   echo "include $class"
-done ) | puppet apply $noop --verbose $options
+done
+) | puppet apply $noop --verbose $options
+
+puppet resource file $link ensure=absent >/dev/null
