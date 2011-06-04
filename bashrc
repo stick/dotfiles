@@ -94,10 +94,10 @@ fi
 if [ "$PS1" ]; then
   case $TERM in
     xterm*)
-      PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}$(__git_ps1 "(%s)"):${PWD/#$HOME/~}\007"'
+      PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}$(__git_ps1 "(%s)"):${PWD/#$HOME/~}\007";history -a'
       ;;
     screen*)
-      PROMPT_COMMAND='echo -ne "\033k${PWD/#$HOME/~}\033\\"'
+      PROMPT_COMMAND='echo -ne "\033k${PWD/#$HOME/~}\033\\";history -a'
       ;;
   esac
   # Turn on checkwinsize
