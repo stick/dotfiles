@@ -14,8 +14,9 @@ function find {
   fi
 }
 
+# does not currently work from inside screen :-(
 function growl {
-  echo -e $'\e]9;'${1}'\007'
+  echo -e $'\e]9;'${1}'\007' ; return
 }
 
 PS1='\h:\W$(__git_ps1 "(%s)") \u\$ ' # macosx style with git branch
