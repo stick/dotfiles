@@ -15,6 +15,9 @@
 # Make gems available
 require 'rubygems'
 
+# vi in irb
+require 'interactive_editor'
+
 # http://drnicutilities.rubyforge.org/map_by_method/
 require 'map_by_method'
 
