@@ -5,15 +5,23 @@
 	editor = vim
   excludesfile = ~/.gitignore
 [color]
-	diff = auto
-	status = auto
-	branch = auto
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = auto
 [alias]
   qc = commit --message \"No Message Logged\" --cleanup=default --all
-  changes = diff --name-status -r
+  changes = log --pretty=format:\"%Cred%h%Creset %cr %cn %Cgreen%s%Creset\" --name-status
+  short = log --pretty=format:\"%Cred%h%Creset %cr %cn %Cgreen%s%Creset\"
+  filelog = log -u  # show changes to a file
+  changelog = log --pretty=format:\" * %s\"
   diffstat = diff --stat -r
   allstatus = status --ignore-submodules=none
   find = ls-tree -r --full-name --name-status HEAD
+  unstage = reset HEAD
+  uncommit = reset --soft HEAD^
+  diff-staged = diff --staged
 [status]
   submodulesummary = true
 [branch]
@@ -21,3 +29,7 @@
 [github]
 	user = stick
   token = !security 2>&1 >/dev/null find-generic-password -gs github.token | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/'
+[gc]
+  auto=1
+[merge]
+  summary=true
