@@ -47,3 +47,5 @@ COLORS=/etc/DIR_COLORS
 [ -e "$COLORS" ] || return
 
 eval `dircolors --sh "$COLORS" 2>/dev/null`
+
+[[ -s ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
