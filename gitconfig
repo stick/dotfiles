@@ -11,6 +11,7 @@
   interactive = auto
   ui = auto
 [alias]
+  list-aliases = config --get-regex alias
   qc = commit --message \"No Message Logged\" --cleanup=default --all
   changes = log --pretty=format:\"%Cred%h%Creset %cr %cn %Cgreen%s%Creset\" --name-status
   short = log --pretty=format:\"%Cred%h%Creset %cr %cn %Cgreen%s%Creset\"
