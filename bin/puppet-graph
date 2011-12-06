@@ -1,0 +1,6 @@
+#!/bin/bash
+# display the last generated dot graph from puppet in ascii
+# wrapper around graph-easy
+
+graph_type=${1:-relationships}
+cat $(puppet --configprint statedir)/graphs/$graph_type.dot |grep -v label | graph-easy --as_ascii | less -F

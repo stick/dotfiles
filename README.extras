@@ -1,0 +1,2 @@
+graphviz: for viewing dot graphs from puppet
+  - graph-easy: perl module that will output dot files to ascii

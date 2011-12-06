@@ -169,3 +169,6 @@ function ssh() {
 function pi() {
   command pi "$@" | less -F
 }
+
+# needed for puppet cloud provisioner
+export RUBYLIB=~/.puppet/modules/cloud_provisioner/lib:$RUBYLIB

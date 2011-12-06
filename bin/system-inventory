@@ -1,0 +1,21 @@
+#!/bin/sh
+# inventory system for applications, ports, modules, etc
+INVENTORY_LOC="$HOME/Dropbox/workstation-configuration"
+
+case $OSTYPE in
+  darwin*)
+    gem list > $INVENTORY_LOC/gems
+    port list installed > $INVENTORY_LOC/ports
+    ls /Applications /Applications/Utilities > $INVENTORY_LOC/applications
+    ;;
+  linux*)
+    if (which rpm >& /dev/null); then
+      rpm -qa --allmatches > $INVENTORY_LOC/rpms
+    fi
+    gem list > $INVENTORY_LOC/gems
+    ;;
+  *)
+    ;;
+esac
+
+

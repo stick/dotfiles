@@ -30,7 +30,7 @@ for parameter in $parameters; do
 done
 echo import \"${site_manifest}\"
 for class in $classes; do
-  echo "include $class"
+  echo "include ${class}"
 done
 ) | puppet apply $noop --verbose $options
 
