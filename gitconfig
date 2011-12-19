@@ -23,6 +23,8 @@
   unstage = reset HEAD
   uncommit = reset --soft HEAD^
   diff-staged = diff --staged
+  ribbon = tag --force _ribbon origin/master
+  catchup = log --patch --reverse --topo-order _ribbon..origin/master
 [status]
   submodulesummary = true
 [branch]
