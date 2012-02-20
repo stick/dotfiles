@@ -1,0 +1,64 @@
+#!/bin/bash
+
+trap on_exit SIGINT SIGTERM EXIT
+shopt -s xpg_echo
+
+host=$1
+shift
+port=${2:-22}
+shift
+
+COLUMN=${SP_COLUMN:=60}
+MAX_TRIES=${SP_MAX_TRIES}
+
+declare -i j=0
+
+on_exit() {
+  END_ELAPSED=$( date '+%s' );
+  ELAPSED=$(( $END_ELAPSED - $START_ELAPSED ));
+  echo "\nelapsed time: $ELAPSED seconds"
+  exit $1;
+}
+
+format_break() {
+  ((j++))
+  if [ $(($j % $COLUMN)) -eq 0 ]; then
+    echo
+  fi
+  # if [ -n "$MAX_TRIES" ]; then
+    # if [ $j -ge "$MAX_TRIES" ]; then
+      # echo "\ngiving up after $MAX_TRIES tries.\n"
+      # exit 2
+    # fi
+  # fi
+}
+
+pping() {
+  ping -t 3 -i 3 -a -c 3 -o $1 &> /dev/null
+  if [ "$?" -eq 0 ]; then
+    echo -en "." && format_break
+    return 0
+  else
+    echo -en "x" && format_break
+    return 1
+  fi
+}
+
+pssh() {
+  nc -d -w 3 $1 2222 &> /dev/null
+  if [ "$?" -eq 0 ]; then
+    echo -en "\n$1 UP\n" && exit 0
+    return 0
+  else
+    echo -en "." && format_break
+    return 1
+  fi
+}
+
+echo "# Checking if $host is up (pingable and port $port open)"
+echo "# . ping successful, port $port closed"
+echo "# x ping timeout"
+START_ELAPSED=$( date '+%s' )
+while [ $j -le $MAX_TRIES ]; do
+  pping $host && pssh $host
+done

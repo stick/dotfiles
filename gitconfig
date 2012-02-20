@@ -1,6 +1,6 @@
 [user]
 	name = Chris MacLeod
-	email = cmacleod@airdat.com
+	email = ckm@glencoesoftware.com
 [core]
 	editor = vim
   excludesfile = ~/.gitignore
@@ -36,3 +36,5 @@
   auto=1
 [merge]
   summary=true
+[diff]
+	mnemonicprefix = true

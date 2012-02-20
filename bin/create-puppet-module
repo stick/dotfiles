@@ -35,7 +35,7 @@ if [ -n "$SKEL_EXISTS" ]; then
   find $module -name .git -prune -o -print
 else
   mkdir -vp ${module}/files
-  mkdir -vp ${module}/manifests
+  mkdir -vp ${module}/manifests/
   mkdir -vp ${module}/lib/puppet/parser/functions
   mkdir -vp ${module}/lib/puppet/provider
   mkdir -vp ${module}/lib/puppet/type

@@ -1,6 +1,10 @@
 #!/bin/sh
 # inventory system for applications, ports, modules, etc
-INVENTORY_LOC="$HOME/Dropbox/workstation-configuration"
+INVENTORY_LOC="$HOME/Dropbox/workstation-configuration/${HOSTNAME}"
+
+if [ ! -d "$INVENTORY_LOC" ]; then
+  mkdir -p $INVENTORY_LOC
+fi
 
 case $OSTYPE in
   darwin*)

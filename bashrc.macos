@@ -48,4 +48,6 @@ COLORS=/etc/DIR_COLORS
 
 eval `dircolors --sh "$COLORS" 2>/dev/null`
 
-[[ -s ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
+# rbenv setup
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"

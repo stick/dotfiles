@@ -7,6 +7,8 @@ else
   repohost=$1
 fi
 
+private_repohost=stick@neurosis.miscellaneous.net
+
 # setup homedir
 printf "Home is $HOME... Proceed? "
 read ANS
@@ -20,19 +22,22 @@ case $ANS in
     exit 0
 esac
 
-./bin/homesync.sh setup $(pwd)
+./dotfiles/bin/homesync.sh setup $(pwd)
+
 ln -sf ~/.bashrc ~/.bash_profile
 
 # clone ssh config repo
-git clone ${repohost}:ssh-config .ssh
+git clone ${private_repohost}:ssh-config.git .ssh
 
 # clone vi configs
-git clone ${repohost}:vimfiles .vim
+set -x
+git clone ssh://${repohost}/vimfiles.git .vim
+set +x
 ln -s ~/.vim/vimrc ~/.vimrc
 ln -s ~/.vim/gvimrc ~/.gvimrc
 
 # gnupg
-git clone ${repohost}:gnupg-config .gnupg
+git clone ${private_repohost}:gnupg-config.git .gnupg
 
 # mac
 case $MACHTYPE in
