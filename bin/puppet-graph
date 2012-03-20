@@ -1,6 +1,16 @@
 #!/bin/bash
-# display the last generated dot graph from puppet in ascii
-# wrapper around graph-easy
+# display the last generated dot graph from puppet in ascii or as a png
+# wrapper around graph-easy for ascii
 
 graph_type=${1:-relationships}
-cat $(puppet --configprint statedir)/graphs/$graph_type.dot |grep -v label | graph-easy --as_ascii | less -F
+dotfile="$(puppet --configprint statedir)/graphs/$graph_type.dot"
+eval $(stat -s $dotfile)
+pngfile="/tmp/puppet-graph-$(date -r $st_mtime -j "+%F_%T")-${graph_type}.png"
+
+if [ -n "$PUPPET_ASCII_GRAPH" ]; then
+  cat ${dotfile} |grep -v label | graph-easy --as_ascii | less -F
+else
+  dot -Tpng ${dotfile} > ${pngfile}
+  open ${pngfile}
+fi
+

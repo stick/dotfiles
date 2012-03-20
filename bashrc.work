@@ -1,3 +1,3 @@
 # vim:ft=sh
 # work specific shell configurations
-CDPATH="$CDPATH:$HOME/repos/puppet/"
+CDPATH=".:$HOME/Repos/:$HOME/Repos/puppet-configs/modules/"
