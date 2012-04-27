@@ -34,6 +34,7 @@ alias gvim="mvim" # mvim is the shell script that ships with MacVim -- gvim is t
 
 # gnu aliases
 alias ls="gls --color=auto"
+alias find="gfind"
 alias dircolors="gdircolors"
 
 # color-ls initialization (taken from /etc/profile.d/colorls.sh on linux)

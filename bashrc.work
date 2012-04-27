@@ -1,3 +1,7 @@
 # vim:ft=sh
 # work specific shell configurations
 CDPATH=".:$HOME/Repos/:$HOME/Repos/puppet-configs/modules/"
+
+if [ -e ~/.ec2/bashrc.aws ]; then
+  . ~/.ec2/bashrc.aws
+fi

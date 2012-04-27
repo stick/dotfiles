@@ -4,6 +4,7 @@
 [core]
 	editor = vim
   excludesfile = ~/.gitignore
+	quotepath = false
 [color]
   diff = auto
   status = auto
@@ -25,16 +26,20 @@
   diff-staged = diff --staged
   ribbon = tag --force _ribbon origin/master
   catchup = log --patch --reverse --topo-order _ribbon..origin/master
+  ignored = ls-files --others -i --exclude-standard --directory
+
 [status]
   submodulesummary = true
 [branch]
   autosetupmerge = true
 [github]
 	user = stick
-  token = !security 2>&1 >/dev/null find-generic-password -gs github.token | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/'
+	token = d9c1cf860dd2fa5752f2bfd2bef22138
 [gc]
   auto=1
 [merge]
   summary=true
 [diff]
 	mnemonicprefix = true
+[mergetool]
+	keepBackup = true

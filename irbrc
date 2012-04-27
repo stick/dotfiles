@@ -41,7 +41,7 @@ Hirb.enable
 extend Hirb::Console
 
 # 'lp' to show method lookup path
-require 'looksee'
+#require 'looksee'
 
 # Load the readline module.
 IRB.conf[:USE_READLINE] = true
@@ -153,8 +153,8 @@ require 'sketches'
 Sketches.config :editor => 'vim'
 
 # Bond (Bash-like tab completion)
-require 'bond'
-Bond.start
+#require 'bond'
+#Bond.start
 
 # Quick way to run just a few specific lines from a file
 def eval_lines(fn, lines)

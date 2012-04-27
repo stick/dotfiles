@@ -50,6 +50,11 @@ export  CVS_RSH VISUAL PAGER EDITOR \
 unset HISTFILESIZE       # never truncate the history file
 unset HISTSIZE           # store an unlimited amount of history
 
+# work specific rc stuff
+if [ -f ~/.bashrc.work ]; then
+  source ~/.bashrc.work
+fi
+
 # Aliases
 alias ndate="date '+%A, %B %d, %Y'"
 alias gpgview='gpg --decrypt'
@@ -58,11 +63,6 @@ alias ls="ls --color=auto"   # gnu ls only -- this gets overwritten for macosx l
 alias ll="ls -l"
 alias l.="ls -la"
 alias rootpath="export PATH=/sbin:/usr/sbin:/usr/local/sbin:$PATH"
-
-# work specific rc stuff
-if [ -f ~/.bashrc.work ]; then
-  source ~/.bashrc.work
-fi
 
 # I like to have root commands in my path even if I don't have perms to them
 if [ -z "$ROOTPATH_RUN" ]; then
@@ -152,7 +152,7 @@ function super-git() {
 # if your remote terminal doesn't have prompt_command setup correctly for screen
 # set term to screen since most remote systems don't support a 256 color screen termcap
 # would be nice to autodetect here but not sure if there's a way
-function ssh() {
+function ssh-fix() {
   args=$@
   case $TERM in
     screen*)
@@ -168,6 +168,11 @@ function ssh() {
 # page the pi (puppet info) command
 function pi() {
   command pi "$@" | less -F
+}
+
+# given a path long list each component
+function lstree() {
+  echo $* | perl -F'/' -an -e 'map { print join "/", @F; print "\n" ; pop @F  } @F ' | xargs ls -ld
 }
 
 # needed for puppet cloud provisioner
