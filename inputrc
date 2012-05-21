@@ -4,5 +4,5 @@ $endif
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 # alternate mappings for "page up" and "page down" to search the history
-"\e[5~": history-search-backward
-"\e[6~": history-search-forward
+## "\e[5~": history-search-backward
+## "\e[6~": history-search-forward

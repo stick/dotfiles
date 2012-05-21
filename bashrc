@@ -97,7 +97,11 @@ if [ "$PS1" ]; then
       PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}$(__git_ps1 "(%s)"):${PWD/#$HOME/~}\007";history -a'
       ;;
     screen*)
-      PROMPT_COMMAND='echo -ne "\033k${PWD/#$HOME/~}\033\\";history -a'
+      if [ -n "$TMUX" ]; then
+        PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}$(__git_ps1 "(%s)")\007";history -a'
+      else
+        PROMPT_COMMAND='echo -ne "\033k${PWD/#$HOME/~}$(__git_ps1 "(%s)")\033\\";history -a'
+      fi
       ;;
   esac
   # Turn on checkwinsize
