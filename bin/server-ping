@@ -9,7 +9,7 @@ port=${2:-22}
 shift
 
 COLUMN=${SP_COLUMN:=60}
-MAX_TRIES=${SP_MAX_TRIES}
+MAX_TRIES=${SP_MAX_TRIES:=0}
 
 declare -i j=0
 
