@@ -1,0 +1,6 @@
+#!/bin/sh
+git push
+pushd ../
+git commit -a -m "submodule update"
+git push
+popd

@@ -16,29 +16,29 @@
 require 'rubygems'
 
 # vi in irb
-require 'interactive_editor'
+#require 'interactive_editor'
 
 # http://drnicutilities.rubyforge.org/map_by_method/
-require 'map_by_method'
+#require 'map_by_method'
 
 # Dr Nic's gem inspired by
 # http://redhanded.hobix.com/inspect/stickItInYourIrbrcMethodfinder.html
-require 'what_methods'
+# require 'what_methods'
 
 # Pretty Print method
 require 'pp'
 
 # Awesome Print gem (gem install awesome_print)
-require 'ap'
+#require 'ap'
 
 # Print information about any HTTP requests being made
-require 'net-http-spy'
+#require 'net-http-spy'
 
 # Draw ASCII tables
-require 'hirb'
-require 'hirb/import_object'
-Hirb.enable
-extend Hirb::Console
+#require 'hirb'
+#require 'hirb/import_object'
+#Hirb.enable
+#extend Hirb::Console
 
 # 'lp' to show method lookup path
 #require 'looksee'
