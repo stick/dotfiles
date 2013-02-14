@@ -40,7 +40,7 @@ RDIST_RSH="/usr/bin/ssh"
 RSYNC_RSH=ssh
 VISUAL=vim
 EDITOR=$VISUAL
-PATH=/opt/local/bin:/opt/local/sbin:$PATH:$HOME/bin/:/usr/local/bin:/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/
+PATH=$HOME/bin:/opt/local/bin:/opt/local/sbin:$PATH:/usr/local/bin:/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/
 MANPATH=$MANPATH:/usr/local/man:/opt/local/man
 
 export  CVS_RSH VISUAL PAGER EDITOR \

@@ -1,0 +1,2 @@
+#!/bin/bash
+echo -ne "\xF0\x9f\x8d\xba"
