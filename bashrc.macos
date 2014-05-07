@@ -1,9 +1,8 @@
 # vim:ft=sh
-# MacPorts Installer addition on 2011-01-04_at_17:29:48: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-if [ -f /opt/local/etc/bash_completion ]; then
-  . /opt/local/etc/bash_completion
+
+# bash completion from homebrew
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
 fi
 
 function find {
@@ -28,8 +27,9 @@ alias gvim="mvim" # mvim is the shell script that ships with MacVim -- gvim is t
 
 # MacOSX -> based on BSD
 # BSD uses posix coreutils
-# you can install coreutils from ports/fink and have access to them all
+# you can install coreutils from ports/fink/homebrew and have access to them all
 # normal port location /opt/local/libexec/gnubin
+# normal brew location /usr/local/opt/coreutils/libexec/gnubin
 # or g{old command name}
 
 # gnu aliases
@@ -38,6 +38,9 @@ alias find="gfind"
 alias dircolors="gdircolors"
 
 # color-ls initialization (taken from /etc/profile.d/colorls.sh on linux)
+
+# newer version os osx ls support color via env var
+CLICOLOR=1
 
 COLORS=/etc/DIR_COLORS
 [ -e "/etc/DIR_COLORS.$TERM" ] && COLORS="/etc/DIR_COLORS.$TERM"
@@ -50,5 +53,8 @@ COLORS=/etc/DIR_COLORS
 eval `dircolors --sh "$COLORS" 2>/dev/null`
 
 # rbenv setup
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+which -s rbenv
+if [ $? -ne 1 ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi

@@ -4,8 +4,8 @@ import subprocess
 import datetime
 
 today = datetime.date.today()
-apgcmd = ['/opt/local/bin/apg','-M','SNCL','-m','14','-t','-n','10']
-passwdcmd = ['/opt/local/bin/openssl','passwd','-1','-stdin','-noverify']
+apgcmd = ['apg','-M','SNCL','-m','14','-t','-n','10']
+passwdcmd = ['openssl','passwd','-1','-stdin','-noverify']
 
 apg = subprocess.Popen(apgcmd,stdout=subprocess.PIPE)
 #p = apg.communicate()[0]

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/opt/local/bin/tmux attach || /opt/local/bin/tmux
+tmux attach || tmux
