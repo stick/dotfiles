@@ -1,2 +1,26 @@
 #!/bin/sh
-/opt/GoogleAppsDirSync/config-manager "$@"
+if [ -n "$GOOGLE_APPS_DIRSYNC_HOME" ]; then
+  PATH=$PATH:$GOOGLE_APPS_DIRSYNC_HOME
+  cd $GOOGLE_APPS_DIRSYNC_HOME
+else
+  if [ -d "/Applications/GoogleAppsDirSync" ] ;then
+    PATH=$PATH:/Applications/GoogleAppsDirSync
+    cd /Applications/GoogleAppsDirSync
+  elif [ -d "$HOME/Applications/GoogleAppsDirSync" ]; then
+    PATH=$PATH:$HOME/Applications/GoogleAppsDirSync
+    cd $HOME/Applications/GoogleAppsDirSync
+  else
+    echo "Cannot find GoogleAppsDirSync install -- try setting GOOGLE_APPS_DIRSYNC_HOME"
+    exit 1
+  fi
+fi
+if [ -n "$GAPPS_DIRSYNC_SSH_TUNNEL" ]; then
+  echo "Creating tunnel to ${GAPPS_DIRSYNC_SSH_TUNNEL#* }"
+  ssh -N -L $GAPPS_DIRSYNC_SSH_TUNNEL &
+  pid=$!
+fi
+config-manager "$@"
+if [ -n "$pid" ]; then
+  echo "Shutting down tunnel."
+  kill $pid
+fi
