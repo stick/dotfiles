@@ -13,9 +13,23 @@ function find {
   fi
 }
 
-# does not currently work from inside screen :-(
-function growl {
-  echo -e $'\e]9;'${1}'\007' ; return
+# this doesn't seem to work at all but leaving for posterity
+# use terminal-notifier instead
+function growl() {
+      local msg="\\e]9;\n\n${*}\\007"
+      case $TERM in
+        screen*)
+          echo "using screen term escape codes"
+          echo -ne '\eP'${msg}'\e\\' ;;
+        *)
+          echo -ne ${msg} ;;
+      esac
+      return
+}
+
+function notify() {
+  local tmux_window=$(tmux display -pt $TMUX_PANE '#I')
+  terminal-notifier -sound Default -subtitle "Window $tmux_window" -message $@
 }
 
 PS1='\h:\W$(__git_ps1 "(%s)") \u\$ ' # macosx style with git branch
@@ -41,6 +55,9 @@ alias dircolors="gdircolors"
 
 # newer version os osx ls support color via env var
 CLICOLOR=1
+
+# need this on mavericks to avoid some clang compiler warnings
+ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 
 COLORS=/etc/DIR_COLORS
 [ -e "/etc/DIR_COLORS.$TERM" ] && COLORS="/etc/DIR_COLORS.$TERM"
