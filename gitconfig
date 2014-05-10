@@ -43,3 +43,5 @@
 	mnemonicprefix = true
 [mergetool]
 	keepBackup = true
+[push]
+	default = simple
