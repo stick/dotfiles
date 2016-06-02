@@ -2,6 +2,8 @@
 # work specific shell configurations
 CDPATH=".:$HOME/Repos/"
 
+
+GAPPS_DIRSYNC_SSH_TUNNEL="1389:localhost:389 ldap.glencoesoftware.com"
 if [ -e ~/.ec2/bashrc.aws ]; then
   . ~/.ec2/bashrc.aws
 fi

@@ -31,7 +31,7 @@ shopt -s no_empty_cmd_completion
 shopt -s huponexit
 
 CVS_RSH=ssh
-HISTCONTROL="ignoredups" # ignore duplicate commands in history
+HISTCONTROL="ignoreboth erasedups" # ignore duplicate commands in history
 HISTIGNORE="ls:&:[bf]g:exit:ll"   # ignore these commands from history
 HISTTIMEFORMAT="%D %r "
 MAILCHECK=15
@@ -63,6 +63,7 @@ alias ls="ls --color=auto"   # gnu ls only -- this gets overwritten for macosx l
 alias ll="ls -l"
 alias l.="ls -la"
 alias rootpath="export PATH=/sbin:/usr/sbin:/usr/local/sbin:$PATH"
+alias vi="vim"
 
 # I like to have root commands in my path even if I don't have perms to them
 if [ -z "$ROOTPATH_RUN" ]; then

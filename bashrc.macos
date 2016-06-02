@@ -37,6 +37,7 @@ PS1='\h:\W$(__git_ps1 "(%s)") \u\$ ' # macosx style with git branch
 # macos aliases
 alias wgrab="curl --remote-name" # make wgrab cause curl to act like wget
 alias gvim="mvim" # mvim is the shell script that ships with MacVim -- gvim is the x11 version
+alias tcopy="reattach-to-user-namespace pbcopy"
 
 
 # MacOSX -> based on BSD
@@ -70,8 +71,7 @@ COLORS=/etc/DIR_COLORS
 eval `dircolors --sh "$COLORS" 2>/dev/null`
 
 # rbenv setup
-which -s rbenv
-if [ $? -ne 1 ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export PATH
