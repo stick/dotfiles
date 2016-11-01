@@ -31,7 +31,7 @@ shopt -s no_empty_cmd_completion
 shopt -s huponexit
 
 CVS_RSH=ssh
-HISTCONTROL="ignoreboth erasedups" # ignore duplicate commands in history
+HISTCONTROL="ignoreboth:erasedups" # ignore duplicate commands in history
 HISTIGNORE="ls:&:[bf]g:exit:ll"   # ignore these commands from history
 HISTTIMEFORMAT="%D %r "
 MAILCHECK=15
@@ -64,6 +64,7 @@ alias ll="ls -l"
 alias l.="ls -la"
 alias rootpath="export PATH=/sbin:/usr/sbin:/usr/local/sbin:$PATH"
 alias vi="vim"
+alias grep="grep --color"
 
 # I like to have root commands in my path even if I don't have perms to them
 if [ -z "$ROOTPATH_RUN" ]; then
