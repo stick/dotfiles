@@ -183,3 +183,8 @@ function lstree() {
 
 # needed for puppet cloud provisioner
 export RUBYLIB=~/.puppet/modules/cloud_provisioner/lib:$RUBYLIB
+
+gam() { "/Users/ckm/bin/gam/gam" "$@" ; }
+
+# added by travis gem
+[ -f /Users/ckm/.travis/travis.sh ] && source /Users/ckm/.travis/travis.sh

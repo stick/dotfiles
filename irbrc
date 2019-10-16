@@ -50,7 +50,7 @@ IRB.conf[:USE_READLINE] = true
 IRB.conf[:PROMPT_MODE]  = :SIMPLE
 
 # Tab Completion
-require 'irb/completion'
+#require 'irb/completion'
 
 # Automatic Indentation
 IRB.conf[:AUTO_INDENT]=true
@@ -65,6 +65,7 @@ IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
 # Implies require 'pp', 'irb/completion', and 'rubygems'
 require 'wirble'
 Wirble.init
+puts "finished initializing wirble"
 
 # Enable colored output
 Wirble.colorize
@@ -153,8 +154,8 @@ require 'sketches'
 Sketches.config :editor => 'vim'
 
 # Bond (Bash-like tab completion)
-#require 'bond'
-#Bond.start
+require 'bond'
+Bond.start
 
 # Quick way to run just a few specific lines from a file
 def eval_lines(fn, lines)

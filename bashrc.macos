@@ -51,6 +51,7 @@ alias tcopy="reattach-to-user-namespace pbcopy"
 alias ls="gls --color=auto"
 alias find="gfind"
 alias dircolors="gdircolors"
+alias pip="pip2.7"
 
 # color-ls initialization (taken from /etc/profile.d/colorls.sh on linux)
 
@@ -70,8 +71,8 @@ COLORS=/etc/DIR_COLORS
 
 eval `dircolors --sh "$COLORS" 2>/dev/null`
 
+PATH=/usr/local/bin:/usr/local/sbin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/grep/libexec/gnubin:$PATH
+export PATH
+
 # rbenv setup
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
-export PATH

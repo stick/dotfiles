@@ -3,7 +3,6 @@
 #
 
 require 'pp'
-require 'rdoc/usage'
 require 'rubygems'
 require 'net/ldap'
 
