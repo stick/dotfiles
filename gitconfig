@@ -5,6 +5,15 @@
 	editor = vim
   excludesfile = ~/.gitignore
 	quotepath = false
+  # attempt to fix v2-project clone issue
+	compression = 9
+  packedGitLimit = 512m 
+  packedGitWindowSize = 512m 
+[pack] 
+  deltaCacheSize = 2047m 
+  packSizeLimit = 2047m 
+  windowMemory = 2047m
+  # end above
 [color]
   diff = auto
   status = auto
