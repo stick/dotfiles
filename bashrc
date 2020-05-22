@@ -188,3 +188,6 @@ gam() { "/Users/ckm/bin/gam/gam" "$@" ; }
 
 # added by travis gem
 [ -f /Users/ckm/.travis/travis.sh ] && source /Users/ckm/.travis/travis.sh
+
+# ruby fun
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
