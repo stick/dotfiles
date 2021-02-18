@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python ~/Repos/artifact-authenticator/src/python/admin_tools.py get-artifact --artifact omero-plus --curl
