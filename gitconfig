@@ -43,7 +43,6 @@
   autosetupmerge = true
 [github]
   user = stick
-  token = d9c1cf860dd2fa5752f2bfd2bef22138
 [gc]
   auto=1
 [merge]
