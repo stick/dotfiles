@@ -1,17 +1,17 @@
 [user]
-	name = Chris MacLeod
-	email = ckm@glencoesoftware.com
+  name = Chris 'stick' MacLeod
+  email = ckm@glencoesoftware.com
 [core]
-	editor = vim
+  editor = vim
   excludesfile = ~/.gitignore
-	quotepath = false
+  quotepath = false
   # attempt to fix v2-project clone issue
-	compression = 9
-  packedGitLimit = 512m 
-  packedGitWindowSize = 512m 
-[pack] 
-  deltaCacheSize = 2047m 
-  packSizeLimit = 2047m 
+  compression = 9
+  packedGitLimit = 512m
+  packedGitWindowSize = 512m
+[pack]
+  deltaCacheSize = 2047m
+  packSizeLimit = 2047m
   windowMemory = 2047m
   # end above
 [color]
@@ -42,15 +42,15 @@
 [branch]
   autosetupmerge = true
 [github]
-	user = stick
-	token = d9c1cf860dd2fa5752f2bfd2bef22138
+  user = stick
+  token = d9c1cf860dd2fa5752f2bfd2bef22138
 [gc]
   auto=1
 [merge]
   summary=true
 [diff]
-	mnemonicprefix = true
+  mnemonicprefix = true
 [mergetool]
-	keepBackup = true
+  keepBackup = true
 [push]
-	default = simple
+  default = simple

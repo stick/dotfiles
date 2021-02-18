@@ -7,3 +7,5 @@ GAPPS_DIRSYNC_SSH_TUNNEL="1389:localhost:389 ldap.glencoesoftware.com"
 if [ -e ~/.ec2/bashrc.aws ]; then
   . ~/.ec2/bashrc.aws
 fi
+
+alias doaws="aws --endpoint https://nyc3.digitialoceanspaces.com"
