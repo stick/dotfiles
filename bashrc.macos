@@ -81,3 +81,6 @@ export PATH="/usr/local/opt/curl/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# homebrew terraform completion commands
+complete -C /opt/homebrew/bin/terraform terraform
