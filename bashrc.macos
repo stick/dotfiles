@@ -1,5 +1,7 @@
 # vim:ft=sh
 
+export PATH=$PATH:/opt/homebrew/bin
+
 # bash completion from homebrew
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
