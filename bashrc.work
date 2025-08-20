@@ -9,3 +9,38 @@ if [ -e ~/.ec2/bashrc.aws ]; then
 fi
 
 alias doaws="aws --endpoint https://nyc3.digitialoceanspaces.com"
+
+function ssh-eice(){
+  local -r query="${1}"
+  local -r region_in="${2}"
+
+  declare -a all_regions
+  if [ -z $region_in ]; then
+    all_regions=($(aws ec2 describe-regions --query "Regions[].RegionName" --output json | jq -r '.[]'))
+  else
+    all_regions+=("$region_in")    
+  fi
+
+  for region in "${all_regions[@]}"; do
+    echo "looking in ${region} for ${query}..."
+    instance_id=$(aws ec2 describe-instances --region="${region}" --filter "Name=tag:Name,Values=${query}" \
+                     'Name=instance-state-name,Values=running' \
+                   --query 'Reservations[].Instances[].InstanceId' \
+                   --output text)
+    [ -n "${instance_id}" ] && break
+  done
+
+  if [ -z "${instance_id}" ]; then
+      echo "EC2 instance not found."
+  elif [ $(echo "${instance_id}" | wc -w) -gt 1 ]; then
+      echo "Multiple EC2 instances found matching your query. Narrow down your query."
+  else
+    echo "---------------------------------------------------------------------------"
+    echo "---  Logging into: Instance-Id: ${instance_id} -- Region: ${region}"
+    echo "---------------------------------------------------------------------------"
+    aws ec2-instance-connect ssh --region="${region}" \
+                                 --os-user ubuntu \
+                                 --instance-id="${instance_id}" \
+                                 --connection-type eice
+  fi
+}

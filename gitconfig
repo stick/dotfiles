@@ -36,6 +36,7 @@
   ribbon = tag --force _ribbon origin/master
   catchup = log --patch --reverse --topo-order _ribbon..origin/master
   ignored = ls-files --others -i --exclude-standard --directory
+  graph = log --graph --decorate --oneline
 
 [status]
   submodulesummary = true

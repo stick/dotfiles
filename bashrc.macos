@@ -1,6 +1,7 @@
 # vim:ft=sh
 
-export PATH=$PATH:/opt/homebrew/bin
+# prioritize homebrew path as utilities there are more unix-like and consistent than the native mac equivalents
+export PATH=/opt/homebrew/bin:$PATH
 
 # bash completion from homebrew
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -84,3 +85,9 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # homebrew terraform completion commands
 complete -C /opt/homebrew/bin/terraform terraform
+
+export PYTHONWARNINGS=ignore::UserWarning
+
+# ssh-keychain
+# upgraded ssh from homebrew isn't the 'apple' version so doesn't have keychain support
+alias ssh-add-apple="/usr/bin/ssh-add --apple-use-keychain --apple-load-keychain"
