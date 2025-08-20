@@ -1,0 +1,15 @@
+#!/bin/bash
+if [ -z "${1}" ]; then
+  echo "$0 [hostname] [\"-J jumphost\"]"
+  exit 1
+fi
+echo "setting up personal environment on ${1}"
+ssh ${2} ${1} bash <<EOF
+mkdir -p ~/.yubico/
+echo "ckm:cccccbibgilj" > ~/.yubico/authorized_yubikeys
+chmod 600 ~/.yubico/authorized_yubikeys
+EOF
+
+echo "Host ${1}" >> ~/.ssh/glencoesoftware-hosts.conf
+scp ${2} ~/.bash_aliases.work ${1}:~/.bash_aliases
+echo "done"

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+NETWORK="Rarecyte"
+# Show current routes
+sudo networksetup -getadditionalroutes "${NETWORK}"
+
+# add new route for arg1 (ip)
+sudo networksetup -setadditionalroutes "${NETWORK}" ${1} 255.255.255.0 ""
